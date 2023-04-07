@@ -10,6 +10,7 @@ import testgroups.VitaMojoCategories;
 
 public class RegisterUITest extends UIBaseTest {
 
+    // I am not familiar with cucumber. Since the learning curve for cucumber would be non-trivial, I went ahead with TestNG based implementation of the test case
     @Test(groups = {VitaMojoCategories.REGISTRATION_UI_SMOKE})
     public void registerTest() {
         driver.get().get(VitaMojoUIProperties.vitaMojoWebUrl);
