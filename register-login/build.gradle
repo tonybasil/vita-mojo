@@ -18,6 +18,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation group: 'org.testng', name: 'testng', version: '7.1.0'
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
 }
 
 task runTestsInParallel(type: Test) {
@@ -38,8 +39,4 @@ task runTestsInParallel(type: Test) {
         }
     }
 
-}
-
-test {
-    useJUnitPlatform()
 }
