@@ -1,3 +1,5 @@
 rootProject.name = 'vita-mojo'
 
 include 'core'
+include 'register-login'
+

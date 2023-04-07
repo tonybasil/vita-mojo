@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation group: 'org.testng', name: 'testng', version: '7.1.0'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.0'
+}
+
+task runTestsInParallel(type: Test) {
+    systemProperty 'OUTPUT_DIR', "$buildDir/"
+    useTestNG {
+        parallel = "methods"
+        threadCount = 5
+        useDefaultListeners = true
+        includeGroups System.getProperty('tag', 'NONE')
+        outputDirectory = file("$buildDir/" + System.getProperty('tag', 'NONE'))
+    }
+
+    testLogging {
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                println "Results: ${result.resultType} (${result.testCount} tests executed, ${result.successfulTestCount} Passed, ${result.failedTestCount} Failed, ${result.skippedTestCount} Skipped)"
+            }
+        }
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
